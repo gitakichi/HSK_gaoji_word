@@ -19,7 +19,7 @@ with open('word.txt',mode='r',encoding="utf-8") as f:
             result2 = result2 + cur[0]
         #print(result2)
         #pinyin_lines[i] = result2
-        to_write = to_write + "{0},{1},{2}\n".format(i,lines[i],result2)
+        to_write = to_write + "{0},{1},{2}\n".format(i+1,lines[i],result2)
         i = i + 1
 
 
