@@ -4,7 +4,7 @@ from pypinyin import pinyin, lazy_pinyin, Style
 
 with open('word.txt',mode='r',encoding="utf-8") as f:
     lines = f.read().splitlines()
-    print(lines[0:10])
+    #print(lines[0:10])
 
     lines_len = len(lines)
     pinyin_lines = [0] * lines_len
@@ -26,13 +26,3 @@ with open('word.txt',mode='r',encoding="utf-8") as f:
 with open('pinyin.txt',mode='w',encoding="utf-8") as f:
     #f.write('\n'.join(pinyin_lines))
     f.write(to_write)
-        
-
-
-#with open('zhongri.csv',mode='r',encoding="utf-8") as f:
-#    text = f.read()
-#    lines = text.split("},")
-
-#print(lines[0]+"}")#10行表示
-#line0_json = json.loads(lines[0])
-#print(line0_json["index"])
