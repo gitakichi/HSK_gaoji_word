@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>HSK高級-単語帳</title>
+<!--<link rel="stylesheet" href="style.css">-->
+<style>
+.card{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    display: inline-block;
+}
+</style>
+<script type="text/javascript" src="word.js"></script>
+</head>
+<body>
+    <h1>HSK高級-単語帳</h1>
+    <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
+    <div id="card" onclick="change_layer();">dummy</div>
+
+    <span id="btn" onclick="back_card();">back</span>
+    <span id="btn" onclick="next_card();">next</span>
+</body>
+
+<script>
+var layer = 0;
+var i=0;
+var element = document.getElementById("card");
+element.innerHTML = word[i].zh;
+//console.log(word[0].zh);
+
+function next_card(){
+    if(i < word.length){
+        i++;
+    }
+    else{
+        i = 0;
+    }
+    element = document.getElementById("card");
+    element.innerHTML = word[i].zh;
+    //reset design
+    element.style.background = "white";
+    element.style.color = "black";
+}
+
+function change_layer(){
+    if(layer == 1){
+        element = document.getElementById("card");
+        element.innerHTML = word[i].zh;
+        element.style.background = "white";
+        element.style.color = "black";
+        layer = 0;
+    }
+    else if(layer == 0){
+        element = document.getElementById("card");
+        element.innerHTML = "日本語：" + word[i].ja;
+        element.style.background = "blue";
+        element.style.color = "white";
+        layer = 1;
+    }
+}
+
+</script>
