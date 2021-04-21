@@ -5,12 +5,14 @@
 <title>HSK高級-単語帳</title>
 <!--<link rel="stylesheet" href="style.css">-->
 <style>
-.card{
-    width: 100px;
-    height: 50px;
-    font-size: 20px;
+#card{
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
     text-align: center;
-    display: inline-block;
+    background: gray;
+    color:white;
+    /*display: inline-block;*/
 }
 </style>
 <script type="text/javascript" src="word.js"></script>
@@ -26,9 +28,9 @@
 
 <script>
 var layer = 0;
-var i=0;
+var i = 0;
 var element = document.getElementById("card");
-element.innerHTML = word[i].zh;
+element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
 //console.log(word[0].zh);
 
 function next_card(){
@@ -38,26 +40,45 @@ function next_card(){
     else{
         i = 0;
     }
+    layer = 0;
     element = document.getElementById("card");
-    element.innerHTML = word[i].zh;
+    element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
     //reset design
-    element.style.background = "white";
-    element.style.color = "black";
+    element.style.background = "gray";
+    element.style.color = "white";
+    element.style.fontSize = "30px";
+}
+function back_card(){
+    if(i > 0){
+        i--;
+    }
+    else{
+        i = word.length-1;
+    }
+    layer = 0;
+    element = document.getElementById("card");
+    element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
+    //reset design
+    element.style.background = "gray";
+    element.style.color = "white";
+    element.style.fontSize = "30px";
 }
 
 function change_layer(){
     if(layer == 1){
         element = document.getElementById("card");
-        element.innerHTML = word[i].zh;
-        element.style.background = "white";
-        element.style.color = "black";
+        element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
+        element.style.background = "gray";
+        element.style.color = "white";
+        element.style.fontSize = "30px";
         layer = 0;
     }
     else if(layer == 0){
         element = document.getElementById("card");
-        element.innerHTML = "日本語：" + word[i].ja;
+        element.innerHTML = "日：" + word[i].ja;
         element.style.background = "blue";
         element.style.color = "white";
+        element.style.fontSize = "20px";
         layer = 1;
     }
 }
