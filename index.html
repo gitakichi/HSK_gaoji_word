@@ -1,37 +1,75 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" charset="utf-8">
 <title>HSK高級-単語帳</title>
 <!--<link rel="stylesheet" href="style.css">-->
 <style>
-#card{
+#main{
+    width : 960px;
+    margin : auto;
+}
+#frame{
     width: 300px;
-    height: 100px;
-    font-size: 30px;
+    margin:auto;
+}
+#card{
+    width: 100%;
+    height: 200px;
     text-align: center;
-    background: gray;
-    color:white;
-    /*display: inline-block;*/
+}
+.btn{
+    width : 60px;
+    height : 30px;
+    display : inline-block;
+    margin : 5px 5px 1px 1px;
+    text-align: center;
+    border : 1px solid #000000;
+    user-select: none;
+}
+#num{
+    width :60px;
+    height:25px;
+    font-size:25px;
+}
+#pinyin_area{
+    font-size: 20px;
+}
+@media screen and (max-width:960px) {
+    #main{
+        width : 100%;
+    }
 }
 </style>
 <script type="text/javascript" src="word.js"></script>
 </head>
 <body>
-    <h1>HSK高級-単語帳</h1>
-    <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
-    <div id="card" onclick="change_layer();">dummy</div>
+    <div id="main">
+        <h1>HSK高級-単語帳</h1>
+        <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
+        <div id="frame">
+            No.<span id="num_area"></span>
+            <div id="card" onclick="change_layer();">
+                <div id="word"></div>   
+                <div id="pinyin_area"></div> 
+            </div>
 
-    <span id="btn" onclick="back_card();">back</span>
-    <span id="btn" onclick="next_card();">next</span>
+            <div style="text-align: left">
+                <span class="btn" onclick="back_card();">back</span>
+                <span class="btn" onclick="next_card();"style="float: right">next</span>
+            </div>
+            <div style="text-align: right">
+                <input id="num"></input>
+                <span class="btn" onclick="jump();">jump</span>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
 var layer = 0;
 var i = 0;
-var element = document.getElementById("card");
-element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
-//console.log(word[0].zh);
+view_zh();
 
 function next_card(){
     if(i < word.length){
@@ -40,13 +78,7 @@ function next_card(){
     else{
         i = 0;
     }
-    layer = 0;
-    element = document.getElementById("card");
-    element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
-    //reset design
-    element.style.background = "gray";
-    element.style.color = "white";
-    element.style.fontSize = "30px";
+    view_zh();
 }
 function back_card(){
     if(i > 0){
@@ -55,32 +87,55 @@ function back_card(){
     else{
         i = word.length-1;
     }
-    layer = 0;
-    element = document.getElementById("card");
-    element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
-    //reset design
-    element.style.background = "gray";
-    element.style.color = "white";
-    element.style.fontSize = "30px";
+    view_zh();
 }
 
 function change_layer(){
     if(layer == 1){
-        element = document.getElementById("card");
-        element.innerHTML = word[i].zh + "<br>" + word[i].pinyin;
-        element.style.background = "gray";
-        element.style.color = "white";
-        element.style.fontSize = "30px";
-        layer = 0;
+        view_zh();
     }
     else if(layer == 0){
-        element = document.getElementById("card");
-        element.innerHTML = "日：" + word[i].ja;
-        element.style.background = "blue";
-        element.style.color = "white";
-        element.style.fontSize = "20px";
-        layer = 1;
+        view_ja();
     }
+}
+
+function jump(){
+    console.log("detect jump");
+    var jump_num = document.getElementById("num").value;
+    if(jump_num < word.length && jump_num >= 0){
+        i = jump_num;
+        view_zh();
+    }
+}
+
+function view_zh(){
+    layer = 0;
+    element = document.getElementById("num_area");
+    element.innerHTML = i;
+    element = document.getElementById("word");
+    element.innerHTML = word[i].zh;
+    element.style.fontSize = "60px";
+    element = document.getElementById("pinyin_area");
+    element.innerHTML = word[i].pinyin;
+    //reset design
+    element = document.getElementById("card");
+    element.style.background = "gray";
+    element.style.color = "white";
+}
+
+function view_ja(){
+    layer = 1;
+    element = document.getElementById("num_area");
+    element.innerHTML = i;
+    element = document.getElementById("word");
+    element.innerHTML = "日訳：" + word[i].ja;
+    element.style.fontSize = "20px";
+    element = document.getElementById("pinyin_area");
+    element.innerHTML = "";
+    //reset design
+    element = document.getElementById("card");
+    element.style.background = "olive";
+    element.style.color = "white";
 }
 
 </script>
