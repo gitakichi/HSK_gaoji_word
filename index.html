@@ -20,20 +20,22 @@ h1{
     width: 100%;
     height: 200px;
     text-align: center;
+    user-select: none;
 }
 .btn{
-    width : 60px;
-    height : 30px;
+    width : 50px;
+    height : 20px;
     display : inline-block;
-    margin : 5px 5px 1px 1px;
+    margin : 2px 2px 1px 1px;
+    font-size:15px;
     text-align: center;
     border : 1px solid #000000;
     user-select: none;
 }
 #num{
-    width :60px;
-    height:25px;
-    font-size:25px;
+    width :80px;
+    height:20px;
+    font-size:10px;
 }
 #pinyin_area{
     font-size: 20px;
@@ -57,17 +59,18 @@ h1{
                 <div id="pinyin_area"></div> 
             </div>
 
-            <div style="text-align: left">
-                <span class="btn" onclick="back_card();">back</span>
-                <span class="btn" onclick="next_card();"style="float: right">next</span>
-            </div>
             <div style="text-align: right">
+                <span class="btn" onclick="back_card();" style="float: left">back</span>
+                <span class="btn" onclick="play_func();">play</span>
                 <span class="btn" onclick="rand_card();">rand</span>
+                <span class="btn" onclick="next_card();">next</span>
             </div>
+
             <div style="text-align: right">
-                <input id="num"></input>
+                <input id="num" style="float: left"></input>
                 <span class="btn" onclick="jump();">jump</span>
             </div>
+            
         </div>
     </div>
 </body>
@@ -77,6 +80,15 @@ var layer = 0;
 var i = 0;
 view_zh();
 
+function play_func(){
+	if ('speechSynthesis' in window) {
+		const uttr = new SpeechSynthesisUtterance(word[i].zh);
+		uttr.rate = 0.5
+		uttr.lang = "zh-CN";
+		// 発言を再生 (発言キューに発言を追加)
+		speechSynthesis.speak(uttr);
+	}
+}
 function rand_card(){
     i = Math.floor(Math.random() * word.length)
     view_zh();
