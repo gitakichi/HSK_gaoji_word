@@ -5,6 +5,9 @@
 <title>HSK高級-単語帳</title>
 <!--<link rel="stylesheet" href="style.css">-->
 <style>
+h1{
+    margin:0;
+}
 #main{
     width : 960px;
     margin : auto;
@@ -59,6 +62,9 @@
                 <span class="btn" onclick="next_card();"style="float: right">next</span>
             </div>
             <div style="text-align: right">
+                <span class="btn" onclick="rand_card();">rand</span>
+            </div>
+            <div style="text-align: right">
                 <input id="num"></input>
                 <span class="btn" onclick="jump();">jump</span>
             </div>
@@ -71,6 +77,10 @@ var layer = 0;
 var i = 0;
 view_zh();
 
+function rand_card(){
+    i = Math.floor(Math.random() * word.length)
+    view_zh();
+}
 function next_card(){
     if(i < word.length){
         i++;
