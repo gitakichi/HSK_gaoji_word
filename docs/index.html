@@ -23,19 +23,14 @@ h1{
     user-select: none;
 }
 .btn{
-    width : 50px;
-    height : 20px;
-    display : inline-block;
-    margin : 2px 2px 1px 1px;
-    font-size:15px;
-    text-align: center;
-    border : 1px solid #000000;
-    user-select: none;
+    width : 80px;
+    height : 80px;
+    font-size:30px;
+    margin:5px;
 }
 #num{
     width :80px;
     height:20px;
-    font-size:10px;
 }
 #pinyin_area{
     font-size: 20px;
@@ -53,22 +48,23 @@ h1{
         <h1>HSK高級-単語帳</h1>
         <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
         <div id="frame">
-            No.<span id="num_area"></span>
+            <form onsubmit="return abc()">
+                No.<input type="number" id="num"></input>
+                <!--<button onclick="jump();">jump</button>-->
+                <input type="submit" value="jump"></input>
+            </form>
+            
             <div id="card" onclick="change_layer();">
                 <div id="word"></div>   
                 <div id="pinyin_area"></div> 
             </div>
 
-            <div style="text-align: right">
-                <span class="btn" onclick="back_card();" style="float: left">back</span>
-                <span class="btn" onclick="play_func();">play</span>
-                <span class="btn" onclick="rand_card();">rand</span>
-                <span class="btn" onclick="next_card();">next</span>
+            <div>
+            <button class="btn" onclick="back_card()">back</button>
+            <button class="btn" onclick="next_card()" style="float: right">next</button>
             </div>
-
-            <div style="text-align: right">
-                <input id="num" style="float: left"></input>
-                <span class="btn" onclick="jump();">jump</span>
+            <div>
+            <button class="btn" onclick="rand_card()" style="float: right">rand</button>
             </div>
             
         </div>
@@ -79,6 +75,11 @@ h1{
 var layer = 0;
 var i = 0;
 view_zh();
+
+function abc(){
+    jump();
+    return false;
+}
 
 function play_func(){
 	if ('speechSynthesis' in window) {
@@ -122,7 +123,7 @@ function change_layer(){
 }
 
 function jump(){
-    console.log("detect jump");
+    //console.log("detect jump");
     var jump_num = document.getElementById("num").value;
     if(jump_num < word.length && jump_num >= 0){
         i = jump_num;
@@ -132,8 +133,8 @@ function jump(){
 
 function view_zh(){
     layer = 0;
-    element = document.getElementById("num_area");
-    element.innerHTML = i;
+    element = document.getElementById("num");
+    element.value = i;
     element = document.getElementById("word");
     element.innerHTML = word[i].zh;
     element.style.fontSize = "60px";
@@ -147,8 +148,8 @@ function view_zh(){
 
 function view_ja(){
     layer = 1;
-    element = document.getElementById("num_area");
-    element.innerHTML = i;
+    element = document.getElementById("num");
+    element.value = i;
     element = document.getElementById("word");
     element.innerHTML = "日訳：" + word[i].ja;
     element.style.fontSize = "20px";
