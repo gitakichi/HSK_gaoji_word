@@ -18,6 +18,7 @@ h1{
     height: 200px;
     text-align: center;
     user-select: none;
+    position:relative;
 }
 .btn{
     width : 80px;
@@ -28,6 +29,13 @@ h1{
 #num{
     width :80px;
     height:20px;
+}
+#cover-btn{
+    width :50px;
+    height:200px;
+    position: absolute;
+    right:0;
+    top:0;
 }
 #pinyin_area{
     font-size: 20px;
@@ -56,6 +64,7 @@ h1{
         <div id="card" onclick="change_layer();">
             <div id="word"></div>   
             <div id="pinyin_area"></div> 
+            <!--<div id="cover-btn" onclick="next_card()"></div>-->
         </div>
 
         <div>
