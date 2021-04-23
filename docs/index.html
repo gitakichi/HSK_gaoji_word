@@ -7,14 +7,11 @@
 <style>
 h1{
     margin:0;
+    font-size:1em;
 }
 #main{
-    width : 960px;
+    max-width : 380px;
     margin : auto;
-}
-#frame{
-    width: 300px;
-    margin:auto;
 }
 #card{
     width: 100%;
@@ -35,38 +32,38 @@ h1{
 #pinyin_area{
     font-size: 20px;
 }
-@media screen and (max-width:960px) {
+/*
+@media screen and (max-width:480px) {
     #main{
         width : 100%;
     }
 }
+*/
 </style>
 <script type="text/javascript" src="word.js"></script>
 </head>
 <body>
     <div id="main">
-        <h1>HSK高級-単語帳</h1>
+        <h1>HSK7-9級　単語カード</h1>
         <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
-        <div id="frame">
-            <form onsubmit="return abc()">
-                No.<input type="tel" id="num"></input>
-                <!--<button onclick="jump();">jump</button>-->
-                <input type="submit" value="jump"></input>
-            </form>
-            
-            <div id="card" onclick="change_layer();">
-                <div id="word"></div>   
-                <div id="pinyin_area"></div> 
-            </div>
+   
+        <form onsubmit="return abc()">
+            No.<input type="tel" id="num"></input>
+            <!--<button onclick="jump();">jump</button>-->
+            <input type="submit" value="jump"></input>
+        </form>
+        
+        <div id="card" onclick="change_layer();">
+            <div id="word"></div>   
+            <div id="pinyin_area"></div> 
+        </div>
 
-            <div>
-            <button class="btn" onclick="back_card()">back</button>
-            <button class="btn" onclick="next_card()" style="float: right">next</button>
-            </div>
-            <div>
-            <button class="btn" onclick="rand_card()" style="float: right">rand</button>
-            </div>
-            
+        <div>
+        <button class="btn" onclick="back_card()">back</button>
+        <button class="btn" onclick="next_card()" style="float: right">next</button>
+        </div>
+        <div>
+        <button class="btn" onclick="rand_card()" style="float: right">rand</button>
         </div>
     </div>
 </body>
