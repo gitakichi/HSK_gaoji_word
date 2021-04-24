@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" charset="utf-8">
-<title>HSK高級-単語帳</title>
+<title>HSK7-9級　単語カード</title>
 <!--<link rel="stylesheet" href="style.css">-->
 <style>
 h1{
@@ -18,6 +18,7 @@ h1{
     height: 200px;
     text-align: center;
     user-select: none;
+    margin:5px;
     position:relative;
 }
 .btn{
@@ -26,10 +27,18 @@ h1{
     font-size:30px;
     margin:5px;
 }
-#num{
-    width :80px;
-    height:20px;
+.sbtn{
+    width : 60px;
+    height : 30px;
+    font-size:20px;
+    margin:5px;
 }
+#num{
+    width :60px;
+    height:30px;
+    font-size:20px;
+}
+/*
 #cover-btn{
     width :50px;
     height:200px;
@@ -37,6 +46,7 @@ h1{
     right:0;
     top:0;
 }
+*/
 #pinyin_area{
     font-size: 20px;
 }
@@ -55,11 +65,14 @@ h1{
         <h1>HSK7-9級　単語カード</h1>
         <!--<input type="checkbox" id="layer"><label for="layer" id="card">dummy</label>;-->
    
-        <form onsubmit="return abc()">
+        <div>
+        <form onsubmit="return abc()" style="display: inline;">
             No.<input type="tel" id="num"></input>
             <!--<button onclick="jump();">jump</button>-->
-            <input type="submit" value="jump"></input>
+            <!--<input type="submit" class="sbtn" value="jump"></input>-->
         </form>
+        <button class="sbtn" onclick="play_func();" style="float: right">play</button>
+    </div>
         
         <div id="card" onclick="change_layer();">
             <div id="word"></div>   
@@ -89,9 +102,21 @@ function abc(){
 
 function play_func(){
 	if ('speechSynthesis' in window) {
+        //console.log(speechSynthesis.getVoices().name);
 		const uttr = new SpeechSynthesisUtterance(word[i].zh);
 		uttr.rate = 0.5
 		uttr.lang = "zh-CN";
+        /*
+        var voice = speechSynthesis.getVoices().find(function(voice){
+            return voice.name === 'Microsoft Yunyang Online (Natural) - Chinese (Mainland)';
+        });
+
+        // 取得できた場合のみ適用する
+        if(voice){
+            uttr.voice = voice;
+        }
+        */
+
 		// 発言を再生 (発言キューに発言を追加)
 		speechSynthesis.speak(uttr);
 	}
