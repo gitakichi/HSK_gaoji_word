@@ -16,10 +16,25 @@ h1{
 #card{
     width: 100%;
     height: 200px;
-    text-align: center;
     user-select: none;
     margin:5px;
     position:relative;
+    font-family: 'SimSun';
+}
+#word_zh{
+    font-size: 60px;
+    text-align: center;
+    font-family: 'SimSun';
+}
+#word_ja{
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Arial';
+}
+#pinyin_area{
+    font-size: 20px;
+    font-family: 'Arial';
+    text-align: center;
 }
 .btn{
     width : 80px;
@@ -38,17 +53,23 @@ h1{
     height:30px;
     font-size:20px;
 }
-/*
-#cover-btn{
-    width :50px;
+#cover-next{
+    width :40px;
     height:200px;
     position: absolute;
     right:0;
     top:0;
+    text-align: center;
+    background-color:rgba(20,23,26,0.3);
 }
-*/
-#pinyin_area{
-    font-size: 20px;
+#cover-back{
+    width :40px;
+    height:200px;
+    position: absolute;
+    left:0;
+    top:0;
+    text-align: center;
+    background-color:rgba(20,23,26,0.3);
 }
 /*
 @media screen and (max-width:480px) {
@@ -71,19 +92,22 @@ h1{
             <!--<button onclick="jump();">jump</button>-->
             <!--<input type="submit" class="sbtn" value="jump"></input>-->
         </form>
-        <button class="sbtn" onclick="play_func();" style="float: right">play</button>
+        <!--<button class="sbtn" onclick="play_func();" style="float: right">play</button>-->
     </div>
         
         <div id="card" onclick="change_layer();">
-            <div id="word"></div>   
+            <div id="word_zh"></div>
+            <div id="word_ja"></div>
             <div id="pinyin_area"></div> 
-            <!--<div id="cover-btn" onclick="next_card()"></div>-->
+            <div id="cover-back" onclick="back_card(event)"><</div>
+            <div id="cover-next" onclick="next_card(event)">></div>
+            <!--stopprogressっていうのを使うと重なった要素で最初に検知したイベントだけ実行できるとか-->
         </div>
 
-        <div>
-        <button class="btn" onclick="back_card()">back</button>
-        <button class="btn" onclick="next_card()" style="float: right">next</button>
-        </div>
+        <!--<div>
+        <button class="btn" onclick="back_card(event)">back</button>
+        <button class="btn" onclick="next_card(event)" style="float: right">next</button>
+        </div>-->
         <div>
         <button class="btn" onclick="rand_card()" style="float: right">rand</button>
         </div>
@@ -125,7 +149,8 @@ function rand_card(){
     i = Math.floor(Math.random() * word.length)
     view_zh();
 }
-function next_card(){
+function next_card(e){
+    e.stopPropagation();
     if(i < word.length){
         i++;
     }
@@ -134,7 +159,8 @@ function next_card(){
     }
     view_zh();
 }
-function back_card(){
+function back_card(e){
+    e.stopPropagation();
     if(i > 0){
         i--;
     }
@@ -156,8 +182,8 @@ function change_layer(){
 function jump(){
     //console.log("detect jump");
     var jump_num = document.getElementById("num").value;
-    if(jump_num < word.length && jump_num >= 0){
-        i = jump_num;
+    if(jump_num <= word.length && jump_num > 0){
+        i = jump_num - 1;//配列は0から
         view_zh();
     }
 }
@@ -165,12 +191,15 @@ function jump(){
 function view_zh(){
     layer = 0;
     element = document.getElementById("num");
-    element.value = i;
-    element = document.getElementById("word");
+    element.value = i + 1;//表示は1から
+    element = document.getElementById("word_zh");
     element.innerHTML = word[i].zh;
-    element.style.fontSize = "60px";
+    element.style.display = "block";
     element = document.getElementById("pinyin_area");
     element.innerHTML = word[i].pinyin;
+    element.style.display = "block";
+    element = document.getElementById("word_ja");
+    element.style.display = "none";
     //reset design
     element = document.getElementById("card");
     element.style.background = "gray";
@@ -180,12 +209,14 @@ function view_zh(){
 function view_ja(){
     layer = 1;
     element = document.getElementById("num");
-    element.value = i;
-    element = document.getElementById("word");
+    element.value = i + 1;//表示は1から
+    element = document.getElementById("word_ja");
     element.innerHTML = "日訳：" + word[i].ja;
-    element.style.fontSize = "20px";
+    element.style.display = "block";
     element = document.getElementById("pinyin_area");
-    element.innerHTML = "";
+    element.style.display = "none";
+    element = document.getElementById("word_zh");
+    element.style.display = "none";
     //reset design
     element = document.getElementById("card");
     element.style.background = "olive";
