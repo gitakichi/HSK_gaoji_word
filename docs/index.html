@@ -61,7 +61,12 @@ h1{
     text-align: center;
     background-color:rgba(20,23,26,0.3);
     cursor:pointer;
-    font-size:20px;
+    box-sizing: border-box;
+    padding-top: 85px;
+    padding-bottom: 85px;
+    font-size:26px;
+    /*line-height: 40px;*/
+    font-weight: 900;
 }
 #cover-next{
     right:0;
@@ -149,13 +154,19 @@ function rand_card(){
 }
 function next_card(e){
     e.stopPropagation();
-    if(i < word.length){
-        i++;
+    
+    if(layer == 1){
+        if(i < word.length){
+            i++;
+        }
+        else{
+            i = 0;
+        }
+        view_zh();
     }
     else{
-        i = 0;
+        view_ja();
     }
-    view_zh();
 }
 function back_card(e){
     e.stopPropagation();
